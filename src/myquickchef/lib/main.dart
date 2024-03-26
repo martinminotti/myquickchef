@@ -4,20 +4,20 @@ void main() {
   runApp(
     MaterialApp(
       home: SafeArea(
-        child: Page(),
+        child: PageScreen(),
       ),
     ),
   );
 }
 
-class Page extends StatefulWidget {
-  const Page({super.key});
+class PageScreen extends StatefulWidget {
+  const PageScreen({super.key});
 
   @override
-  State<Page> createState() => _PageState();
+  State<PageScreen> createState() => _PageScreenState();
 }
 
-class _PageState extends State<Page> {
+class _PageScreenState extends State<PageScreen> {
   int _currentIndex = 0;
 
   @override
