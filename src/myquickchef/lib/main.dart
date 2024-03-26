@@ -4,6 +4,7 @@ import 'screens/page_screen.dart';
 import 'styles/style_guide.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
       title: "MyQuickChef",
