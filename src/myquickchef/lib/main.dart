@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     MaterialApp(
+      title: "MyQuickChef",
       home: SafeArea(
         child: PageScreen(),
       ),
