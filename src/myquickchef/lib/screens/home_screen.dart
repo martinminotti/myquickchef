@@ -52,69 +52,87 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("MyQuickChef")],
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("MyQuickChef"),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CameraBox(
+                    initializeControllerFuture: _initializeControllerFuture,
+                    controller: _controller),
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CameraBox(
-                  initializeControllerFuture: _initializeControllerFuture,
-                  controller: _controller),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        try {
-                          await _initializeControllerFuture;
-                          setState(() {
-                            torch = !torch;
-                          });
-                          torch
-                              ? await _controller.setFlashMode(FlashMode.torch)
-                              : await _controller.setFlashMode(FlashMode.off);
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () async {
+                          try {
+                            await _initializeControllerFuture;
+                            setState(() {
+                              torch = !torch;
+                            });
+                            torch
+                                ? await _controller
+                                    .setFlashMode(FlashMode.torch)
+                                : await _controller.setFlashMode(FlashMode.off);
 
-                          print(torch);
+                            print(torch);
 
-                          if (!context.mounted) return;
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: torch
-                          ? const Icon(Icons.flash_on)
-                          : const Icon(Icons.flash_off))
-                ],
-              ),
-              Column(
-                children: [
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          minimumSize: Size(55, 55), shape: CircleBorder()),
-                      onPressed: () async {
-                        try {
-                          await _initializeControllerFuture;
-                          _image = await _controller.takePicture();
+                            if (!context.mounted) return;
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: torch
+                            ? const Icon(Icons.flash_on)
+                            : const Icon(Icons.flash_off))
+                  ],
+                ),
+                Column(
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize: Size(55, 55), shape: CircleBorder()),
+                        onPressed: () async {
+                          try {
+                            await _initializeControllerFuture;
+                            _image = await _controller.takePicture();
 
-                          if (!context.mounted) return;
+                            if (!context.mounted) return;
 
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => DisplayPictureScreen(
+                                  imagePath: _image.path,
+                                ),
+                              ),
+                            );
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: Icon(Icons.camera_alt))
+                  ],
+                ),
+                Column(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () async {
+                          await getImage();
                           await Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => DisplayPictureScreen(
@@ -122,33 +140,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                      child: Icon(Icons.camera_alt))
-                ],
-              ),
-              Column(
-                children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        await getImage();
-                        await Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => DisplayPictureScreen(
-                              imagePath: _image.path,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.image))
-                ],
-              ),
-            ],
-          ),
-        )
-      ],
+                        },
+                        child: Icon(Icons.image))
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

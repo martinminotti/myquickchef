@@ -1,11 +1,11 @@
 {
-    "name": "myquickchef",
+    "name": "MyQuickChef",
     "short_name": "myquickchef",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Project by Martin Minotti, Nicola Delbianco, Halim Shala, Lorenzo Lontani",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
