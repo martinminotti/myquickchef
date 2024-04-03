@@ -24,12 +24,12 @@ TextTheme buildTextTheme() {
       height: 17 / 27,
     ),
     bodyMedium: GoogleFonts.inter(
-      fontSize: 25.0,
+      fontSize: 20.0,
       fontWeight: FontWeight.w500,
-      height: 15 / 25,
+      height: 1.1,
     ),
     labelSmall: GoogleFonts.inter(
-      fontSize: 5,
+      fontSize: 15,
       fontWeight: FontWeight.w500,
       height: 12 / 15,
     ),

@@ -1,11 +1,11 @@
-import 'dart:io';
+import 'dart:convert';
 
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myquickchef/services/api_service.dart';
 
+import '../widgets/analyze_image.dart';
 import '../widgets/camera_box.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
-  late XFile _image;
+  late XFile? _image;
   var torch = false;
 
   @override
@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _controller = CameraController(
       widget.camera,
-      ResolutionPreset.medium,
+      ResolutionPreset.low,
+      imageFormatGroup: ImageFormatGroup.jpeg,
     );
     _initializeControllerFuture = _controller.initialize();
   }
@@ -41,14 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  Future getImage() async {
-    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      setState(() {
-        _image = image;
-      });
-    }
+  Future<XFile?> getImage() async {
+    return await ImagePicker().pickImage(source: ImageSource.gallery);
   }
 
   @override
@@ -97,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                         },
                         child: torch
-                            ? const Icon(Icons.flash_on)
-                            : const Icon(Icons.flash_off))
+                            ? const Icon(Icons.flash_on_rounded)
+                            : const Icon(Icons.flash_off_rounded))
                   ],
                 ),
                 Column(
@@ -117,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => AnalyzeImage(
-                                  image: _image,
+                                  image: _image!,
                                 ),
                               ),
                             );
@@ -125,23 +120,28 @@ class _HomeScreenState extends State<HomeScreen> {
                             print(e);
                           }
                         },
-                        child: const Icon(Icons.camera_alt))
+                        child: const Icon(Icons.camera_alt_rounded))
                   ],
                 ),
                 Column(
                   children: [
                     ElevatedButton(
                         onPressed: () async {
-                          await getImage();
-                          await Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => AnalyzeImage(
-                                image: _image,
+                          _image = await getImage();
+
+                          if (!context.mounted) return;
+
+                          if (_image != null) {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => AnalyzeImage(
+                                  image: _image!,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
-                        child: const Icon(Icons.image))
+                        child: const Icon(Icons.image_rounded))
                   ],
                 ),
               ],
@@ -150,29 +150,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
-  }
-}
-
-class AnalyzeImage extends StatelessWidget {
-  final XFile image;
-
-  const AnalyzeImage({super.key, required this.image});
-
-  sendImage() async {
-    final res = await ApiService().sendImageToGPT4Vision(image: image);
-    print(res);
-    return res;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Risultati'),
-          centerTitle: true,
-        ),
-        body: Card(
-          child: Text(sendImage()),
-        ));
   }
 }
