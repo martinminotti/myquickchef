@@ -16,9 +16,6 @@ class CameraBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       child: SizedBox(
         height: 500,
         width: 330,
@@ -26,7 +23,14 @@ class CameraBox extends StatelessWidget {
           future: _initializeControllerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return CameraPreview(_controller);
+              return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CameraPreview(_controller),
+                  ));
             } else {
               return const Center(child: CircularProgressIndicator());
             }

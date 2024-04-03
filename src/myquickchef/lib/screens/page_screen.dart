@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'home_screen.dart';
 
@@ -28,8 +27,10 @@ class _PageScreenState extends State<PageScreen> {
           _currentIndex = index;
         }),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.star), label: "Preferiti")
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.star_rounded), label: "Preferiti")
         ],
       ),
       body: _currentIndex == 0

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 TextTheme buildTextTheme() {
   return TextTheme(
-    displayLarge: GoogleFonts.inter(
+    titleLarge: GoogleFonts.inter(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
       height: 22 / 32,
@@ -24,12 +24,12 @@ TextTheme buildTextTheme() {
       height: 17 / 27,
     ),
     bodyMedium: GoogleFonts.inter(
-      fontSize: 25.0,
+      fontSize: 20.0,
       fontWeight: FontWeight.w500,
-      height: 15 / 25,
+      height: 1.1,
     ),
     labelSmall: GoogleFonts.inter(
-      fontSize: 5,
+      fontSize: 15,
       fontWeight: FontWeight.w500,
       height: 12 / 15,
     ),
