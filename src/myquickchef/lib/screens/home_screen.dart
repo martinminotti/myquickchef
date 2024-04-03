@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myquickchef/services/api_service.dart';
-
 import '../widgets/analyze_image.dart';
 import '../widgets/camera_box.dart';
 
