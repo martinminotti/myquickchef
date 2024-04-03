@@ -17,7 +17,7 @@ class ResultScreen extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           toolbarHeight: 90,
           leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
+            padding: const EdgeInsets.only(left: 25),
             child: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {},
@@ -28,22 +28,35 @@ class ResultScreen extends StatelessWidget {
             'Risultati',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ), //text risultati
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 25),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.refresh_rounded,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ],
         ),
-        body: ListView.builder(
-          scrollDirection: Axis.vertical, // Imposta la direzione orizzontale
-          itemCount: recipes.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RecipeCard(recipes[index],
-                  false), // Utilizza la RecipeCard per ogni ricetta
-            );
+        //utilizzo un widget per evitare lo stretching delle card durante l'overscroll della listview
+        body: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overscroll) {
+            overscroll.disallowIndicator(); // Prevent Overscroll Indication
+            return true;
           },
-        ),
-        floatingActionButton: IconButton(
-          onPressed: () {},
-          icon: Image.asset('lib/icons/quick_button.png'),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
+          child: ListView.builder(
+            scrollDirection: Axis.vertical, // Imposta la direzione orizzontale
+            itemCount: recipes.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RecipeCard(recipes[index],
+                    false), // Utilizza la RecipeCard per ogni ricetta
+              );
+            },
+          ),
+        ));
   }
 }
