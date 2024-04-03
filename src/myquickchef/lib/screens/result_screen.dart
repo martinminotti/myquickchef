@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:myquickchef/main.dart';
+import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/widgets/recipe_card.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  ResultScreen({super.key});
 
-  //List<Recipe> recipes = []; // Lista delle ricette
+  List<Recipe> recipes = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
