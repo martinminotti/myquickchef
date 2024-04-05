@@ -24,7 +24,7 @@ class ResultScreen extends StatelessWidget {
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_rounded),
             onPressed: () async {
               await Navigator.maybePop(context);
             },

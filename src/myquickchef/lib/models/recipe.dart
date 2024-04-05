@@ -6,7 +6,7 @@ import 'package:collection/collection.dart';
 class Recipe {
   final String name;
   final String category;
-  final String presentation;
+  final String summary;
   final String preparationTime;
   final List<String> ingredients;
   final List<String> steps;
@@ -14,7 +14,7 @@ class Recipe {
   Recipe({
     required this.name,
     required this.category,
-    required this.presentation,
+    required this.summary,
     required this.preparationTime,
     required this.ingredients,
     required this.steps,
@@ -23,7 +23,7 @@ class Recipe {
   Recipe copyWith({
     String? name,
     String? category,
-    String? presentation,
+    String? summary,
     String? preparationTime,
     List<String>? ingredients,
     List<String>? steps,
@@ -31,7 +31,7 @@ class Recipe {
     return Recipe(
       name: name ?? this.name,
       category: category ?? this.category,
-      presentation: presentation ?? this.presentation,
+      summary: summary ?? this.summary,
       preparationTime: preparationTime ?? this.preparationTime,
       ingredients: ingredients ?? this.ingredients,
       steps: steps ?? this.steps,
@@ -42,7 +42,7 @@ class Recipe {
     return <String, dynamic>{
       'name': name,
       'category': category,
-      'presentation': presentation,
+      'summary': summary,
       'preparationTime': preparationTime,
       'ingredients': ingredients,
       'steps': steps,
@@ -53,7 +53,7 @@ class Recipe {
     return Recipe(
         name: map['name'] as String,
         category: map['category'] as String,
-        presentation: map['presentation'] as String,
+        summary: map['summary'] as String,
         preparationTime: map['preparationTime'] as String,
         ingredients: List<String>.from(map['ingredients']),
         steps: List<String>.from(map['steps']));
@@ -66,7 +66,7 @@ class Recipe {
 
   @override
   String toString() {
-    return 'Recipe(name: $name, category: $category, presentation: $presentation, preparationTime: $preparationTime, ingredients: $ingredients, steps: $steps)';
+    return 'Recipe(name: $name, category: $category, summary: $summary, preparationTime: $preparationTime, ingredients: $ingredients, steps: $steps)';
   }
 
   @override
@@ -76,7 +76,7 @@ class Recipe {
 
     return other.name == name &&
         other.category == category &&
-        other.presentation == presentation &&
+        other.summary == summary &&
         other.preparationTime == preparationTime &&
         listEquals(other.ingredients, ingredients) &&
         listEquals(other.steps, steps);
@@ -86,7 +86,7 @@ class Recipe {
   int get hashCode {
     return name.hashCode ^
         category.hashCode ^
-        presentation.hashCode ^
+        summary.hashCode ^
         preparationTime.hashCode ^
         ingredients.hashCode ^
         steps.hashCode;
