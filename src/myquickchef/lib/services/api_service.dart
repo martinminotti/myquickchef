@@ -94,7 +94,7 @@ class ApiService {
                 {
                   "type": "text",
                   "text":
-                      "GPT, your task is to provide 3 easy-to-cook recipes with precision in JSON format composed of a \"recipes\" key a list where each value is a recipe that has 3 keys(name, ingredients, instructions). Using this list of food and ingredients: $ingredients. Respond strictly with the name of the recipe, the list of ingredients (including the each one quantity to use), and the instructions. Everything must be written on a single line and each one must have \n for every item. If necessary, be clear on how to execute the preparation.",
+                      "GPT, il tuo compito è quello di fornirmi 3 ricette facili da cucinare, e di immagazzinarle con precisone in formato JSON composto da una chiave \"ricette\", una lista dove ogni valore è una ricetta che ha 6 chiavi (name, ingredients, category, preparationTime, presentation, steps). Devi farlo usando questa lista di cibo ed ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti (includendo nella stessa ed unica stringa la quantità da usare di ciascuno), una categoria sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni numerate, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
                 }
               ],
             },

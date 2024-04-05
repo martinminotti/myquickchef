@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../widgets/analyze_image.dart';
+import 'package:myquickchef/screens/result_screen.dart';
 import '../widgets/camera_box.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,16 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CameraBox(
-                    initializeControllerFuture: _initializeControllerFuture,
-                    controller: _controller),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CameraBox(
+                  initializeControllerFuture: _initializeControllerFuture,
+                  controller: _controller),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
@@ -104,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => AnalyzeImage(
+                                builder: (context) => ResultScreen(
                                   image: _image!,
                                 ),
                               ),
@@ -127,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (_image != null) {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => AnalyzeImage(
+                                builder: (context) => ResultScreen(
                                   image: _image!,
                                 ),
                               ),

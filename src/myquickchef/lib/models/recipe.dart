@@ -8,7 +8,7 @@ class Recipe {
   final String category;
   final String presentation;
   final String preparationTime;
-  final List<String> ingredients;
+  final String ingredients;
   final List<String> steps;
 
   Recipe({
@@ -25,7 +25,7 @@ class Recipe {
     String? category,
     String? presentation,
     String? preparationTime,
-    List<String>? ingredients,
+    String? ingredients,
     List<String>? steps,
   }) {
     return Recipe(
@@ -55,9 +55,9 @@ class Recipe {
         category: map['category'] as String,
         presentation: map['presentation'] as String,
         preparationTime: map['preparationTime'] as String,
-        ingredients: List<String>.from((map['ingredients'] as List<String>)),
+        ingredients: map['ingredients'] as String,
         steps: List<String>.from(
-          (map['steps'] as List<String>),
+          (map['steps']),
         ));
   }
 

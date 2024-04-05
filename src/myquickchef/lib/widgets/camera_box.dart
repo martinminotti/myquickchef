@@ -17,7 +17,7 @@ class CameraBox extends StatelessWidget {
     return Card(
       elevation: 5,
       child: SizedBox(
-        height: 500,
+        height: 480,
         width: 330,
         child: FutureBuilder<void>(
           future: _initializeControllerFuture,

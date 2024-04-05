@@ -1,50 +1,42 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:myquickchef/main.dart';
-import 'package:myquickchef/models/recipe.dart';
-import 'package:myquickchef/widgets/recipe_card.dart';
+import 'package:myquickchef/widgets/results_list.dart';
 
 class ResultScreen extends StatelessWidget {
-  ResultScreen({super.key});
+  final XFile image;
 
-  List<Recipe> recipes = [];
+  const ResultScreen({
+    super.key,
+    required this.image,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          shape: Border(
-            bottom:
-                BorderSide(color: Color.fromRGBO(244, 245, 247, 100), width: 6),
+      appBar: AppBar(
+        shape: const Border(
+          bottom:
+              BorderSide(color: Color.fromRGBO(244, 245, 247, 100), width: 6),
+        ),
+        surfaceTintColor: Colors.transparent,
+        toolbarHeight: 90,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () async {
+              await Navigator.maybePop(context);
+            },
           ),
-          surfaceTintColor: Colors.transparent,
-          toolbarHeight: 90,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {},
-            ),
-          ), //icona back
-          centerTitle: true,
-          title: const Text(
-            'Risultati',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ), //text risultati
-        ),
-        body: ListView.builder(
-          scrollDirection: Axis.vertical, // Imposta la direzione orizzontale
-          itemCount: recipes.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RecipeCard(recipes[index],
-                  false), // Utilizza la RecipeCard per ogni ricetta
-            );
-          },
-        ),
-        floatingActionButton: IconButton(
-          onPressed: () {},
-          icon: Image.asset('lib/icons/quick_button.png'),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
+        ), //icona back
+        centerTitle: true,
+        title: const Text(
+          'Risultati',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ), //text risultati
+      ),
+      body: ResultsList(image: image),
+    );
   }
 }

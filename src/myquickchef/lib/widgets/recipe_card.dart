@@ -4,14 +4,14 @@ import 'package:myquickchef/models/recipe.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
-  bool click;
-  RecipeCard(this.recipe, this.click, {super.key});
+  RecipeCard(this.recipe, {super.key});
 
   @override
   State<RecipeCard> createState() => _RecipeCardState();
 }
 
 class _RecipeCardState extends State<RecipeCard> {
+  var click = false;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,7 +22,7 @@ class _RecipeCardState extends State<RecipeCard> {
             width: 1.0,
           ),
           borderRadius: BorderRadius.circular(16)),
-      elevation: 5, //elevazione card
+      elevation: 3, //elevazione card
       child: Container(
         //metto tutta la card dentro un container per il colore di sfondo e il border che deve coincidere con quello della card
         decoration: BoxDecoration(
@@ -52,10 +52,10 @@ class _RecipeCardState extends State<RecipeCard> {
             trailing: IconButton(
               onPressed: () {
                 setState(() {
-                  widget.click = !widget.click;
+                  click = !click;
                 });
               },
-              icon: Image.asset((widget.click == false)
+              icon: Image.asset((click == false)
                   ? 'lib/icons/like_off.png'
                   : 'lib/icons/like_on.png'),
             ),
