@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.only(left: 10, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -94,10 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(55, 55),
-                            shape: const CircleBorder()),
+                    IconButton(
                         onPressed: () async {
                           try {
                             await _initializeControllerFuture;
@@ -116,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             print(e);
                           }
                         },
-                        child: const Icon(Icons.camera_alt_rounded))
+                        icon: Image.asset("lib/icons/quick_button.png"))
                   ],
                 ),
                 Column(
