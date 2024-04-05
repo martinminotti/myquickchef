@@ -3,6 +3,7 @@ import "dart:io";
 
 import "package:camera/camera.dart";
 import "package:dio/dio.dart";
+import "package:flutter/widgets.dart";
 import "package:myquickchef/constants/api_constants.dart";
 
 class ApiService {
@@ -140,6 +141,38 @@ class ApiService {
       }
       return jsonResponse["choices"][0]["message"]["function_call"]
           ["arguments"];
+    } catch (e) {
+      print(e);
+      throw Exception("Error: $e");
+    }
+  }
+
+  Future<String> generateImage({
+    required String recipeName,
+    String size = "256x256",
+    String model = "dall-e-2",
+  }) async {
+    try {
+      final response = await _dio.post(
+        "$BASE_URL/images/generations",
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader: "Bearer $API_KEY2",
+          },
+        ),
+        data: jsonEncode({
+          "model": model,
+          "prompt": recipeName,
+          "n": 1,
+          "size": size,
+        }),
+      );
+      final imageResponse = response.data;
+      print(imageResponse);
+      if (imageResponse["error"] != null) {
+        throw HttpException(imageResponse["error"]["message"]);
+      }
+      return imageResponse["data"][0]["url"];
     } catch (e) {
       print(e);
       throw Exception("Error: $e");

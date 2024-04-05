@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myquickchef/main.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/screens/recipe_card_screen.dart';
 
