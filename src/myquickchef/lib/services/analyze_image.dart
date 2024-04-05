@@ -5,8 +5,8 @@ import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/services/api_service.dart';
 
 Future<List<Recipe>?> analyzeImage(XFile image) async {
-  final res = await ApiService().sendImageToGPT4Vision(image: image);
-  // const res = "Olive oil, basil, parmesan cheese, garlic, pine nuts";
+  //final res = await ApiService().sendImageToGPT4Vision(image: image);
+  const res = "Olive oil, basil, parmesan cheese, garlic, pine nuts";
   print(res);
   if (res == "I don\'t know." || res == "Please pick another image.") {
     return null;
@@ -15,8 +15,13 @@ Future<List<Recipe>?> analyzeImage(XFile image) async {
   final recipeList =
       jsonDecode(await ApiService().sendIngredientsToGPT3(ingredients: res));
   print(recipeList["ricette"]);
-  final lista = List<Recipe>.from(
-      recipeList["ricette"].map<Recipe>((i) => Recipe.fromMap(i)));
-  print(lista);
-  return lista;
+  try {
+    final lista = List<Recipe>.from(
+        recipeList["ricette"].map<Recipe>((i) => Recipe.fromMap(i)));
+    print(lista);
+  } catch (e) {
+    print(e);
+  }
+
+  return recipeList;
 }

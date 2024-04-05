@@ -8,7 +8,7 @@ class Recipe {
   final String category;
   final String presentation;
   final String preparationTime;
-  final String ingredients;
+  final List<String> ingredients;
   final List<String> steps;
 
   Recipe({
@@ -25,7 +25,7 @@ class Recipe {
     String? category,
     String? presentation,
     String? preparationTime,
-    String? ingredients,
+    List<String>? ingredients,
     List<String>? steps,
   }) {
     return Recipe(
@@ -55,10 +55,8 @@ class Recipe {
         category: map['category'] as String,
         presentation: map['presentation'] as String,
         preparationTime: map['preparationTime'] as String,
-        ingredients: map['ingredients'] as String,
-        steps: List<String>.from(
-          (map['steps']),
-        ));
+        ingredients: List<String>.from(map['ingredients']),
+        steps: List<String>.from(map['steps']));
   }
 
   String toJson() => json.encode(toMap());

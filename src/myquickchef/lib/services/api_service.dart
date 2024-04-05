@@ -83,6 +83,36 @@ class ApiService {
         ),
         data: jsonEncode({
           "model": model,
+          "functions": [
+            {
+              "name": "createRecipesObject",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "category": {"type": "string"},
+                  "presentation": {"type": "string"},
+                  "preparationTime": {"type": "string"},
+                  "ingredients": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                  "steps": {
+                    "type": "array",
+                    "items": {"type": "string"}
+                  },
+                },
+                "required": [
+                  "name",
+                  "category",
+                  "presentation",
+                  "preparationTime",
+                  "ingredients",
+                  "steps",
+                ]
+              }
+            }
+          ],
           "messages": [
             {
               "role": "system",
@@ -94,11 +124,12 @@ class ApiService {
                 {
                   "type": "text",
                   "text":
-                      "GPT, il tuo compito è quello di fornirmi 3 ricette facili da cucinare, e di immagazzinarle con precisone in formato JSON composto da una chiave \"ricette\", una lista dove ogni valore è una ricetta che ha 6 chiavi (name, ingredients, category, preparationTime, presentation, steps). Devi farlo usando questa lista di cibo ed ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti (includendo nella stessa ed unica stringa la quantità da usare di ciascuno), una categoria sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni numerate, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
+                      "GPT, il tuo compito è quello di generarmi un massimo di 5 ricette facili da cucinare usando la funzione createRecipesObject. Devi farlo usando questa lista di cibo ed ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti, una categoria sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni numerate, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
                 }
               ],
             },
           ],
+          "function_call": {"name": "createRecipesObject"},
           "max_tokens": maxTokens,
         }),
       );
@@ -108,8 +139,10 @@ class ApiService {
         print(jsonResponse["error"]["message"]);
         throw HttpException(jsonResponse["error"]["message"]);
       }
-      print(jsonResponse);
-      return jsonResponse["choices"][0]["message"]["content"];
+      print(
+          jsonResponse["choices"][0]["message"]["function_call"]["arguments"]);
+      return jsonResponse["choices"][0]["message"]["function_call"]
+          ["arguments"];
     } catch (e) {
       print(e);
       throw Exception("Error: $e");
