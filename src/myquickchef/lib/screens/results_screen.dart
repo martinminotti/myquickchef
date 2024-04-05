@@ -3,10 +3,10 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:myquickchef/widgets/results_list.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultsScreen extends StatelessWidget {
   final XFile image;
 
-  const ResultScreen({
+  const ResultsScreen({
     super.key,
     required this.image,
   });

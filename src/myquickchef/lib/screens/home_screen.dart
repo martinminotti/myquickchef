@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myquickchef/screens/result_screen.dart';
+import 'package:myquickchef/screens/results_screen.dart';
 import '../widgets/camera_box.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => ResultScreen(
+                                builder: (context) => ResultsScreen(
                                   image: _image!,
                                 ),
                               ),
@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (_image != null) {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => ResultScreen(
+                                builder: (context) => ResultsScreen(
                                   image: _image!,
                                 ),
                               ),

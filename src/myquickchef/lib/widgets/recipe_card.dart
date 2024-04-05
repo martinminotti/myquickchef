@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myquickchef/models/recipe.dart';
-import 'package:myquickchef/screens/recipe_card_screen.dart';
+import 'package:myquickchef/screens/recipe_details_screen.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
@@ -18,7 +18,7 @@ class _RecipeCardState extends State<RecipeCard> {
       onTap: () async {
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => RecipeCardScreen(
+            builder: (context) => RecipeDetailsScreen(
               recipe: widget.recipe,
             ),
           ),

@@ -5,16 +5,16 @@ import 'package:myquickchef/models/recipe.dart';
 import 'package:bulleted_list/bulleted_list.dart';
 import 'package:myquickchef/services/api_service.dart';
 
-class RecipeCardScreen extends StatefulWidget {
-  const RecipeCardScreen({required this.recipe, super.key});
+class RecipeDetailsScreen extends StatefulWidget {
+  const RecipeDetailsScreen({required this.recipe, super.key});
 
   final Recipe recipe;
 
   @override
-  State<RecipeCardScreen> createState() => _RecipeCardScreenState();
+  State<RecipeDetailsScreen> createState() => _RecipeDetailsScreenState();
 }
 
-class _RecipeCardScreenState extends State<RecipeCardScreen> {
+class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   var click = false;
 
   Future<Image> getImage() async {
@@ -29,7 +29,7 @@ class _RecipeCardScreenState extends State<RecipeCardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        forceMaterialTransparency: false,
+        forceMaterialTransparency: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_rounded),
           onPressed: () async {
