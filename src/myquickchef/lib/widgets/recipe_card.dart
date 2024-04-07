@@ -11,18 +11,21 @@ class RecipeCard extends StatefulWidget {
 }
 
 class _RecipeCardState extends State<RecipeCard> {
-  var click = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await Navigator.of(context).push(
+        await Navigator.of(context)
+            .push(
           MaterialPageRoute(
             builder: (context) => RecipeDetailsScreen(
               recipe: widget.recipe,
             ),
           ),
-        );
+        )
+            .then((_) {
+          setState(() {});
+        });
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -62,12 +65,12 @@ class _RecipeCardState extends State<RecipeCard> {
               trailing: IconButton(
                 onPressed: () {
                   setState(() {
-                    click = !click;
+                    widget.recipe.favorite = !widget.recipe.favorite;
                   });
                 },
-                icon: Image.asset((click == false)
-                    ? 'lib/icons/like_off.png'
-                    : 'lib/icons/like_on.png'),
+                icon: Image.asset((widget.recipe.favorite)
+                    ? 'lib/icons/like_on.png'
+                    : 'lib/icons/like_off.png'),
               ),
             ),
             Container(

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
 import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
 
 class Recipe {
   final String name;
@@ -10,15 +10,18 @@ class Recipe {
   final String preparationTime;
   final List<String> ingredients;
   final List<String> steps;
+  late bool favorite;
+  late Image? image;
 
-  Recipe({
-    required this.name,
-    required this.category,
-    required this.summary,
-    required this.preparationTime,
-    required this.ingredients,
-    required this.steps,
-  });
+  Recipe(
+      {required this.name,
+      required this.category,
+      required this.summary,
+      required this.preparationTime,
+      required this.ingredients,
+      required this.steps,
+      this.favorite = false,
+      this.image});
 
   Recipe copyWith({
     String? name,
