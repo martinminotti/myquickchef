@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,7 +12,7 @@ class Recipe {
   final List<String> ingredients;
   final List<String> steps;
   late bool favorite;
-  late Image? image;
+  late String? image;
 
   Recipe(
       {required this.name,
@@ -49,17 +50,21 @@ class Recipe {
       'preparationTime': preparationTime,
       'ingredients': ingredients,
       'steps': steps,
+      'image': image,
     };
   }
 
   factory Recipe.fromMap(Map<String, dynamic> map) {
     return Recipe(
-        name: map['name'] as String,
-        category: map['category'] as String,
-        summary: map['summary'] as String,
-        preparationTime: map['preparationTime'] as String,
-        ingredients: List<String>.from(map['ingredients']),
-        steps: List<String>.from(map['steps']));
+      name: map['name'] as String,
+      category: map['category'] as String,
+      summary: map['summary'] as String,
+      preparationTime: map['preparationTime'] as String,
+      ingredients: List<String>.from(map['ingredients']),
+      steps: List<String>.from(map['steps']),
+      favorite: map["favorite"] ?? false,
+      image: map["image"],
+    );
   }
 
   String toJson() => json.encode(toMap());

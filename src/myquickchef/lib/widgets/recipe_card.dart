@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/screens/recipe_details_screen.dart';
+import 'package:myquickchef/services/file_recipes.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
@@ -66,6 +67,11 @@ class _RecipeCardState extends State<RecipeCard> {
                 onPressed: () {
                   setState(() {
                     widget.recipe.favorite = !widget.recipe.favorite;
+                    if (widget.recipe.favorite) {
+                      saveRecipe(widget.recipe);
+                    } else {
+                      deleteRecipe(widget.recipe);
+                    }
                   });
                 },
                 icon: Image.asset((widget.recipe.favorite)
