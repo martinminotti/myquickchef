@@ -3,6 +3,7 @@ import "dart:io";
 
 import "package:camera/camera.dart";
 import "package:dio/dio.dart";
+import "package:flutter/widgets.dart";
 import "package:myquickchef/constants/api_constants.dart";
 
 class ApiService {
@@ -83,6 +84,36 @@ class ApiService {
         ),
         data: jsonEncode({
           "model": model,
+          "functions": [
+            {
+              "name": "createRecipesObject",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "recipes": {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string"},
+                      "category": {"type": "string"},
+                      "summary": {"type": "string"},
+                      "preparationTime": {"type": "string"},
+                      "ingredients": {
+                        "type": "array",
+                        "items": {"type": "string"}
+                      },
+                      "steps": {
+                        "type": "array",
+                        "items": {"type": "string"}
+                      },
+                    }
+                  },
+                },
+                "required": [
+                  "recipes",
+                ]
+              }
+            }
+          ],
           "messages": [
             {
               "role": "system",
@@ -94,22 +125,54 @@ class ApiService {
                 {
                   "type": "text",
                   "text":
-                      "GPT, your task is to provide 3 easy-to-cook recipes with precision in JSON format composed of a \"recipes\" key a list where each value is a recipe that has 3 keys(name, ingredients, instructions). Using this list of food and ingredients: $ingredients. Respond strictly with the name of the recipe, the list of ingredients (including the each one quantity to use), and the instructions. Everything must be written on a single line and each one must have \n for every item. If necessary, be clear on how to execute the preparation.",
+                      "GPT, il tuo compito è quello di generare da un minimo di 3 a un massimo di 5 ricette facili da cucinare usando la funzione createRecipesObject. Devi farlo usando questa lista di cibo ed ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti, una categoria sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni numerate, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
                 }
               ],
             },
           ],
+          "function_call": {"name": "createRecipesObject"},
           "max_tokens": maxTokens,
         }),
       );
       final jsonResponse = response.data;
 
       if (jsonResponse["error"] != null) {
-        print(jsonResponse["error"]["message"]);
         throw HttpException(jsonResponse["error"]["message"]);
       }
-      print(jsonResponse);
-      return jsonResponse["choices"][0]["message"]["content"];
+      return jsonResponse["choices"][0]["message"]["function_call"]
+          ["arguments"];
+    } catch (e) {
+      print(e);
+      throw Exception("Error: $e");
+    }
+  }
+
+  Future<String> generateImage({
+    required String recipeName,
+    String size = "256x256",
+    String model = "dall-e-2",
+  }) async {
+    try {
+      final response = await _dio.post(
+        "$BASE_URL/images/generations",
+        options: Options(
+          headers: {
+            HttpHeaders.authorizationHeader: "Bearer $API_KEY2",
+          },
+        ),
+        data: jsonEncode({
+          "model": model,
+          "prompt": recipeName,
+          "n": 1,
+          "size": size,
+        }),
+      );
+      final imageResponse = response.data;
+      print(imageResponse);
+      if (imageResponse["error"] != null) {
+        throw HttpException(imageResponse["error"]["message"]);
+      }
+      return imageResponse["data"][0]["url"];
     } catch (e) {
       print(e);
       throw Exception("Error: $e");

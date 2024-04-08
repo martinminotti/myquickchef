@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import '../widgets/analyze_image.dart';
+import 'package:myquickchef/screens/results_screen.dart';
 import '../widgets/camera_box.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,19 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CameraBox(
-                    initializeControllerFuture: _initializeControllerFuture,
-                    controller: _controller),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CameraBox(
+                  initializeControllerFuture: _initializeControllerFuture,
+                  controller: _controller),
+            ],
           ),
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.only(left: 10, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -94,10 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(55, 55),
-                            shape: const CircleBorder()),
+                    IconButton(
                         onPressed: () async {
                           try {
                             await _initializeControllerFuture;
@@ -107,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => AnalyzeImage(
+                                builder: (context) => ResultsScreen(
                                   image: _image!,
                                 ),
                               ),
@@ -116,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             print(e);
                           }
                         },
-                        child: const Icon(Icons.camera_alt_rounded))
+                        icon: Image.asset("lib/icons/quick_button.png"))
                   ],
                 ),
                 Column(
@@ -130,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (_image != null) {
                             await Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => AnalyzeImage(
+                                builder: (context) => ResultsScreen(
                                   image: _image!,
                                 ),
                               ),
