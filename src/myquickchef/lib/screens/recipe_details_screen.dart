@@ -65,7 +65,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 expandedHeight: 300.0,
                 floating: false,
                 pinned: false,
-                stretch: true,
+                stretch: false,
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
                     collapseMode: CollapseMode.parallax,
@@ -113,13 +113,16 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 indent: 1,
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsets.only(left: 8, bottom: 20),
                 child: Text(widget.recipe.name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)),
               
-              Text(
-                  "${widget.recipe.category} • ${widget.recipe.preparationTime}"),
+              Container(
+                padding: EdgeInsets.only(left: 8, bottom: 10),
+                child: Text(
+                    "${widget.recipe.category}  •  ${widget.recipe.preparationTime}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),),
+              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
                     onPressed: () {
@@ -136,28 +139,35 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
               const Divider(
                 color: Colors.grey,
                 height: 30,
-                thickness: 4,
+                thickness: 1,
                 indent: 1,
               ),
-              const Text("Ingredienti"),
+              Container(
+                padding: EdgeInsets.only(left: 8, bottom: 20, top: 20),
+                child: const Text("Ingredienti", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)),
               BulletedList(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                bulletColor: Colors.black87,
+                bulletColor: Color.fromARGB(255, 6, 185, 239),
                 listItems: widget.recipe.ingredients,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 bulletType: BulletType.conventional,
               ),
               const Divider(
                 color: Colors.grey,
                 height: 30,
-                thickness: 4,
+                thickness: 1,
                 indent: 1,
               ),
-              const Text("Ricetta"),
+              Container(
+                padding: EdgeInsets.only(left: 8, bottom: 20, top: 20),
+                child: const Text("Ricetta", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)),
               BulletedList(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 bulletColor: Colors.black87,
                 listItems: widget.recipe.steps,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 bulletType: BulletType.numbered,
+      
               )
             ],
           ),
