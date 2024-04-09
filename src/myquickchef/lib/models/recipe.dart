@@ -51,6 +51,7 @@ class Recipe {
       'ingredients': ingredients,
       'steps': steps,
       'image': image,
+      'favorite': favorite,
     };
   }
 

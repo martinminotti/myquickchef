@@ -1,14 +1,11 @@
 import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:bulleted_list/bulleted_list.dart';
-import 'package:myquickchef/services/api_service.dart';
 import 'package:myquickchef/services/file_recipes.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:myquickchef/services/get_image.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
   const RecipeDetailsScreen({required this.recipe, super.key});
@@ -21,22 +18,6 @@ class RecipeDetailsScreen extends StatefulWidget {
 
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   var click = false;
-
-  Future<Image> getImage() async {
-    final url =await ApiService().generateImage(recipeName: widget.recipe.name);
-    // final url ="https://www.giallozafferano.it/images/ricette/0/5/foto_hd/hd650x433_wm.jpg";
-    // final image = Image.network(url);
-    String tempPath = (await getTemporaryDirectory()).path;
-    final res = await Dio()
-        .get(url, options: Options(responseType: ResponseType.bytes));
-    File file =
-        await File('$tempPath/images/${url.split("?")[0].split("/").last}')
-            .create(recursive: true);
-    await file.writeAsBytes(res.data);
-    widget.recipe.image = file.path;
-    final image = Image.file(file);
-    return image;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +35,12 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       body: widget.recipe.image != null
           ? showRecipeDetails()
           : FutureBuilder(
-              future: getImage(),
+              future: getImage(widget.recipe),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
+                  widget.recipe.image = snapshot.data;
                   return showRecipeDetails();
                 } else {
                   return const Center(

@@ -19,6 +19,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasData) {
+          if (snapshot.data!.isEmpty) {
+            return const Center(
+                child: Text(
+              "No favorites",
+              textAlign: TextAlign.center,
+            ));
+          }
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
@@ -28,7 +35,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         } else {
           return const Center(
               child: Text(
-            "No favorites",
+            "Error loading JSON file",
             textAlign: TextAlign.center,
           ));
         }
