@@ -40,7 +40,7 @@ ColorScheme buildColorSchemeTheme() {
   return const ColorScheme(
     primary: Color(0xFF01BAEF),
     onPrimary: Color(0xFFFFFFFF),
-    secondary: Color(0xFFF747A96),
+    secondary: Color(0xfff747a96),
     onSecondary: Color(0xFFFFFFFF),
     background: Color(0xFFFFFFFF),
     onBackground: Color(0xFF1B2536),

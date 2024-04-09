@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -107,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          minimumSize: Size(55, 55), shape: CircleBorder()),
+                          minimumSize: const Size(55, 55), shape: const CircleBorder()),
                       onPressed: () async {
                         try {
                           await _initializeControllerFuture;
@@ -126,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           print(e);
                         }
                       },
-                      child: Icon(Icons.camera_alt))
+                      child: const Icon(Icons.camera_alt))
                 ],
               ),
               Column(
@@ -142,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       },
-                      child: Icon(Icons.image))
+                      child: const Icon(Icons.image))
                 ],
               ),
             ],

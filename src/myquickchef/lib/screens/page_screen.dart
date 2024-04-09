@@ -1,7 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'home_screen.dart';
 
@@ -36,7 +34,7 @@ class _PageScreenState extends State<PageScreen> {
           ? HomeScreen(
               camera: widget.camera,
             )
-          : Scaffold(),
+          : const Scaffold(),
     );
   }
 }
