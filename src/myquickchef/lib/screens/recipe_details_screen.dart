@@ -8,9 +8,9 @@ import 'package:myquickchef/services/file_recipes.dart';
 import 'package:myquickchef/services/get_image.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
-  const RecipeDetailsScreen({required this.recipe, super.key});
-
   final Recipe recipe;
+  final VoidCallback? onDelete;
+  const RecipeDetailsScreen({super.key, required this.recipe, this.onDelete});
 
   @override
   State<RecipeDetailsScreen> createState() => _RecipeDetailsScreenState();
@@ -86,6 +86,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                           saveRecipe(widget.recipe);
                         } else {
                           deleteRecipe(widget.recipe);
+                          widget.onDelete!();
                         }
                       });
                     },

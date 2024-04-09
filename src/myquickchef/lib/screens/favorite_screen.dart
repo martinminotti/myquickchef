@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:myquickchef/screens/results_screen.dart';
-import 'package:myquickchef/services/file_recipes.dart';
-import 'package:myquickchef/widgets/recipe_card.dart';
+
+import 'package:myquickchef/models/recipe.dart';
+import 'package:myquickchef/widgets/favorite_list.dart';
 
 class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({super.key});
+  const FavoriteScreen({
+    super.key,
+  });
 
   @override
   State<FavoriteScreen> createState() => _FavoriteScreenState();
@@ -13,33 +15,12 @@ class FavoriteScreen extends StatefulWidget {
 class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: loadList(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasData) {
-          if (snapshot.data!.isEmpty) {
-            return const Center(
-                child: Text(
-              "No favorites",
-              textAlign: TextAlign.center,
-            ));
-          }
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              return RecipeCard(snapshot.data![index]);
-            },
-          );
-        } else {
-          return const Center(
-              child: Text(
-            "Error loading JSON file",
-            textAlign: TextAlign.center,
-          ));
-        }
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Favorites"),
+        centerTitle: true,
+      ),
+      body: FavoriteList(),
     );
   }
 }

@@ -6,7 +6,8 @@ import 'package:myquickchef/services/get_image.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
-  RecipeCard(this.recipe, {super.key});
+  final VoidCallback? onDelete;
+  const RecipeCard({super.key, required this.recipe, this.onDelete});
 
   @override
   State<RecipeCard> createState() => _RecipeCardState();
@@ -22,6 +23,7 @@ class _RecipeCardState extends State<RecipeCard> {
           MaterialPageRoute(
             builder: (context) => RecipeDetailsScreen(
               recipe: widget.recipe,
+              onDelete: widget.onDelete,
             ),
           ),
         )
@@ -64,23 +66,9 @@ class _RecipeCardState extends State<RecipeCard> {
                     '${widget.recipe.category} • ${widget.recipe.preparationTime}',
                     style: const TextStyle(fontSize: 18)),
               ),
-              trailing: IconButton(
-                onPressed: () async {
-                  setState(() {
-                    widget.recipe.favorite = !widget.recipe.favorite;
-                  });
-                  if (widget.recipe.favorite) {
-                    final image = await getImage(widget.recipe);
-                    widget.recipe.image = image;
-                    saveRecipe(widget.recipe);
-                  } else {
-                    deleteRecipe(widget.recipe);
-                  }
-                },
-                icon: Image.asset((widget.recipe.favorite)
-                    ? 'lib/icons/like_on.png'
-                    : 'lib/icons/like_off.png'),
-              ),
+              trailing: widget.recipe.favorite
+                  ? Image.asset('lib/icons/like_on.png')
+                  : const Icon(null),
             ),
             Container(
               //container per contenere solo la presentazione della ricetta
