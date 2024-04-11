@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/services/file_recipes.dart';
+import 'package:myquickchef/widgets/favorite_card.dart';
 import 'package:myquickchef/widgets/recipe_card.dart';
 
 class FavoriteList extends StatefulWidget {
@@ -38,17 +40,27 @@ class _FavoriteListState extends State<FavoriteList> {
             "No favorites",
             textAlign: TextAlign.center,
           ))
-        : ListView.builder(
+        : GridView.builder(
             itemCount: favoritesList.length,
             itemBuilder: (context, index) {
-              return RecipeCard(
+              return FavoriteCard(
                 recipe: favoritesList[index],
                 onDelete: () => onDelete(index),
               );
             },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.0,
+              crossAxisSpacing: 0.0,
+              mainAxisSpacing: 5,
+              mainAxisExtent: 290,
+            ),
           );
   }
 }
+
+
+
 
 // @override
 //   Widget build(BuildContext context) {
