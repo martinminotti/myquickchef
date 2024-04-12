@@ -19,7 +19,7 @@ class ResultsList extends StatelessWidget {
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
-              return RecipeCard(snapshot.data![index]);
+              return RecipeCard(recipe: snapshot.data![index]);
             },
           );
         } else {

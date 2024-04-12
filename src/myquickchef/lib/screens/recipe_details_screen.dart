@@ -1,14 +1,16 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:bulleted_list/bulleted_list.dart';
-import 'package:myquickchef/services/api_service.dart';
+import 'package:myquickchef/services/file_recipes.dart';
+import 'package:myquickchef/services/get_image.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
-  const RecipeDetailsScreen({required this.recipe, super.key});
-
   final Recipe recipe;
+  final VoidCallback? onDelete;
+  const RecipeDetailsScreen({super.key, required this.recipe, this.onDelete});
 
   @override
   State<RecipeDetailsScreen> createState() => _RecipeDetailsScreenState();
@@ -17,14 +19,6 @@ class RecipeDetailsScreen extends StatefulWidget {
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   var click = false;
 
-  Future<Image> getImage() async {
-    //final url =await ApiService().generateImage(recipeName: widget.recipe.name);
-    final url ="https://oaidalleapiprodscus.blob.core.windows.net/private/org-kL8HhjzTITcoFzNeQyppAdGz/user-mFFMTQxy3gspgpyUKVUJLKB3/img-5hQ3Lr4TODxNjudAB0bgzO1n.png?st=2024-04-08T14%3A00%3A30Z&se=2024-04-08T16%3A00%3A30Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2024-04-08T00%3A14%3A17Z&ske=2024-04-09T00%3A14%3A17Z&sks=b&skv=2021-08-06&sig=wDPoExieV7yU0RTTikDMH5ezV4rZZDpWPOfmm1nkC0A%3D";
-    final image = Image.network(url);
-    widget.recipe.image = image;
-    return image;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,21 +26,22 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       body: widget.recipe.image != null
           ? showRecipeDetails2()
           : FutureBuilder(
-        future: getImage(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasData) {
-            return showRecipeDetails2();
-          } else {
-            return const Center(
-                child: Text(
-                  "Image Error",
-                  textAlign: TextAlign.center,
-                ));
-          }
-        },
-      ),
+              future: getImage(widget.recipe),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasData) {
+                  widget.recipe.image = snapshot.data;
+                  return showRecipeDetails();
+                } else {
+                  return const Center(
+                      child: Text(
+                    "Image Error",
+                    textAlign: TextAlign.center,
+                  ));
+                }
+              },
+            ),
     );
   }
 
@@ -106,6 +101,10 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Center(
+                  child: Image(
+                image: Image.file(File(widget.recipe.image!)).image,
+              )),
               const Divider(
                 color: Colors.white,
                 height: 30,
@@ -128,6 +127,12 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                     onPressed: () {
                       setState(() {
                         widget.recipe.favorite = !widget.recipe.favorite;
+                        if (widget.recipe.favorite) {
+                          saveRecipe(widget.recipe);
+                        } else {
+                          deleteRecipe(widget.recipe);
+                          widget.onDelete!();
+                        }
                       });
                     },
                     icon: Image.asset((widget.recipe.favorite)
