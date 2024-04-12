@@ -129,9 +129,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                     ],
                   ),
                   const Divider(
-                    color: Colors.grey,
-                    height: 30,
-                    thickness: 1,
+                    color: Color.fromRGBO(244, 245, 247, 10),
+                    thickness: 11,
                     indent: 1,
                   ),
                   Container(
@@ -149,9 +148,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                     bulletType: BulletType.conventional,
                   ),
                   const Divider(
-                    color: Colors.grey,
-                    height: 30,
-                    thickness: 1,
+                    color: Color.fromRGBO(244, 245, 247, 10),
+                    thickness: 11,
                     indent: 1,
                   ),
                   Container(

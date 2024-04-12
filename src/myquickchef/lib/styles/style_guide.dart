@@ -35,6 +35,21 @@ TextTheme buildTextTheme() {
     ),
   );
 }
+/*
+ColorScheme buildColorSchemeTheme() {
+  return const ColorScheme(
+    primary: Color(0xFFFFFFFF),
+    onPrimary: Color(0xFFFFFFFF),
+    secondary: Color(0xFFFFFFFF),
+    onSecondary: Color(0xFFFFFFFF),
+    background: Color(0xFFFFFFFF),
+    onBackground: Color(0xFFFFFFFF),
+    error: Color(0xFFFFFFFF),
+    onError: Color(0xFFFFFFFF),
+    surface: Color(0xFFFFFFFF),
+    onSurface: Color(0xFFFFFFFF),
+    brightness: Brightness.light,
+  );*/
 
 ColorScheme buildColorSchemeTheme() {
   return const ColorScheme(

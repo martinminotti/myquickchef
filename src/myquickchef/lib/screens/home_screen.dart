@@ -99,8 +99,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             }
                           },
                           child: torch
-                              ? Image.asset("lib/icons/flash_off.png")
-                              : Image.asset("lib/icons/flash_on.png")),
+                              ? Image.asset("lib/icons/flash_on.png")
+                              : Image.asset("lib/icons/flash_off.png")),
                     )
                   ],
                 ),
