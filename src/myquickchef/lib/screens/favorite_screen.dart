@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/widgets/favorite_list.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -10,8 +9,8 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const FavoriteList(),
+    return const Scaffold(
+      body: FavoriteList(),
     );
   }
 }

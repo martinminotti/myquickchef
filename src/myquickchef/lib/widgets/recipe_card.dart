@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/screens/recipe_details_screen.dart';
-import 'package:myquickchef/services/file_recipes.dart';
-import 'package:myquickchef/services/get_image.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
