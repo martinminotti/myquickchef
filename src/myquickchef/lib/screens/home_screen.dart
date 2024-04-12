@@ -47,7 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("MyQuickChef"),
+        title: const Text(
+          "MyQuickChef",
+          style: TextStyle(fontSize: 21, color: Colors.black),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,83 +58,107 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CameraBox(
-                  initializeControllerFuture: _initializeControllerFuture,
-                  controller: _controller),
+              SizedBox(
+                height: 490,
+                child: CameraBox(
+                    initializeControllerFuture: _initializeControllerFuture,
+                    controller: _controller),
+              ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 50, right: 50),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
                   children: [
-                    ElevatedButton(
-                        onPressed: () async {
-                          try {
-                            await _initializeControllerFuture;
-                            setState(() {
-                              torch = !torch;
-                            });
-                            torch
-                                ? await _controller
-                                    .setFlashMode(FlashMode.torch)
-                                : await _controller.setFlashMode(FlashMode.off);
+                    SizedBox(
+                      height: 47,
+                      width: 69,
+                      child: ElevatedButton(
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Color.fromRGBO(244, 245, 247, 10)),
+                          ),
+                          onPressed: () async {
+                            try {
+                              await _initializeControllerFuture;
+                              setState(() {
+                                torch = !torch;
+                              });
+                              torch
+                                  ? await _controller
+                                      .setFlashMode(FlashMode.torch)
+                                  : await _controller
+                                      .setFlashMode(FlashMode.off);
 
-                            if (!context.mounted) return;
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        child: torch
-                            ? const Icon(Icons.flash_on_rounded)
-                            : const Icon(Icons.flash_off_rounded))
+                              if (!context.mounted) return;
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                          child: torch
+                              ? Image.asset("lib/icons/flash_off.png")
+                              : Image.asset("lib/icons/flash_on.png")),
+                    )
                   ],
                 ),
                 Column(
                   children: [
-                    IconButton(
-                        onPressed: () async {
-                          try {
-                            await _initializeControllerFuture;
-                            _image = await _controller.takePicture();
+                    SizedBox(
+                      height: 153,
+                      width: 153,
+                      child: IconButton(
+                          onPressed: () async {
+                            try {
+                              await _initializeControllerFuture;
+                              _image = await _controller.takePicture();
 
-                            if (!context.mounted) return;
+                              if (!context.mounted) return;
 
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ResultsScreen(
-                                  image: _image!,
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ResultsScreen(
+                                    image: _image!,
+                                  ),
                                 ),
-                              ),
-                            );
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
-                        icon: Image.asset("lib/icons/quick_button.png"))
+                              );
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                          icon: Image.asset("lib/icons/quick_button.png")),
+                    )
                   ],
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                        onPressed: () async {
-                          _image = await getImage();
+                    SizedBox(
+                      height: 47,
+                      width: 69,
+                      child: ElevatedButton(
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll<Color>(
+                                Color.fromRGBO(244, 245, 247, 10)),
+                          ),
+                          onPressed: () async {
+                            _image = await getImage();
 
-                          if (!context.mounted) return;
+                            if (!context.mounted) return;
 
-                          if (_image != null) {
-                            await Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ResultsScreen(
-                                  image: _image!,
+                            if (_image != null) {
+                              await Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ResultsScreen(
+                                    image: _image!,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                        },
-                        child: const Icon(Icons.image_rounded))
+                              );
+                            }
+                          },
+                          child: Image.asset("lib/icons/image_off.png")),
+                    )
                   ],
                 ),
               ],
