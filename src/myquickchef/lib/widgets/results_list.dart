@@ -14,7 +14,7 @@ class ResultsList extends StatelessWidget {
       future: analyzeImage(image),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(child: Image.asset("lib/icons/loading_mqc.gif"));
         } else if (snapshot.hasData) {
           return ListView.builder(
             itemCount: snapshot.data!.length,

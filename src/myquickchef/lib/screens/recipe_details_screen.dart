@@ -29,7 +29,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
               future: getImage(widget.recipe),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(child: Image.asset("lib/icons/loading_mqc.gif"));
                 } else if (snapshot.hasData) {
                   widget.recipe.image = snapshot.data;
                   return showRecipeDetails();
