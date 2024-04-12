@@ -3,7 +3,6 @@ import "dart:io";
 
 import "package:camera/camera.dart";
 import "package:dio/dio.dart";
-import "package:flutter/widgets.dart";
 import "package:myquickchef/constants/api_constants.dart";
 
 class ApiService {
@@ -125,7 +124,7 @@ class ApiService {
                 {
                   "type": "text",
                   "text":
-                      "GPT, il tuo compito è quello di generare fino almeno 3 ricette usando la funzione createRecipesObject. Devi farlo usando in parte o anche tutta questa lista di ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti, una categoria sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni numerate, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
+                      "GPT, il tuo compito è quello di generare fino ad una massimo di 5 ricette usando la funzione createRecipesObject. Devi farlo usando in parte o anche tutta questa lista di ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti, una categoria con una sola parola sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
                 }
               ],
             },
@@ -149,7 +148,7 @@ class ApiService {
 
   Future<String> generateImage({
     required String recipeName,
-    String size = "256x256",
+    String size = "512x512",
     String model = "dall-e-2",
   }) async {
     try {

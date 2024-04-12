@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -6,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/screens/recipe_details_screen.dart';
-import 'package:myquickchef/services/file_recipes.dart';
-import 'package:myquickchef/services/get_image.dart';
 
 class FavoriteCard extends StatefulWidget {
   final Recipe recipe;
@@ -52,11 +49,11 @@ class _FavoriteCardState extends State<FavoriteCard> {
               padding: EdgeInsets.only(top: 15),
               child: Text(
                 widget.recipe.name,
-                style: TextStyle(
-                  color: Colors.black,
+                style: const TextStyle(
+                  color: Colors.black87,
                   letterSpacing: 0.5,
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ),
@@ -72,7 +69,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                         ? '${widget.recipe.category}'
                         : '${widget.recipe.category} • ${widget.recipe.preparationTime}',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 13,
                     ),
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/services/file_recipes.dart';
 import 'package:myquickchef/widgets/favorite_card.dart';
 import 'package:myquickchef/widgets/recipe_card.dart';
+import 'package:path/path.dart';
 
 class FavoriteList extends StatefulWidget {
   const FavoriteList({super.key});
@@ -56,34 +57,39 @@ class _FavoriteListState extends State<FavoriteList> {
           ))
         : Column(
             children: [
-              SearchAnchor(
-                  builder: (BuildContext context, SearchController controller) {
-                return SearchBar(
-                  controller: controller,
-                  hintText: "Cerca",
-                  padding: const MaterialStatePropertyAll<EdgeInsets>(
-                      EdgeInsets.symmetric(horizontal: 16.0)),
-                  onChanged: onQueryChanged,
-                  onSubmitted: (value) {
-                    setState(() {
-                      recents.add(value);
-                    });
-                  },
-                  leading: const Icon(Icons.search),
-                );
-              }, suggestionsBuilder:
-                      (BuildContext context, SearchController controller) {
-                return List<ListTile>.generate(recents.length, (int index) {
-                  return ListTile(
-                    title: Text(recents[index]),
-                    onTap: () {
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: SearchAnchor(builder:
+                    (BuildContext context, SearchController controller) {
+                  return SearchBar(
+                    controller: controller,
+                    hintText: "Cerca ricetta",
+                    hintStyle: const MaterialStatePropertyAll<TextStyle>(
+                        TextStyle(color: Colors.grey)),
+                    padding: const MaterialStatePropertyAll<EdgeInsets>(
+                        EdgeInsets.symmetric(horizontal: 16.0)),
+                    onChanged: onQueryChanged,
+                    onSubmitted: (value) {
                       setState(() {
-                        controller.closeView(recents[index]);
+                        recents.add(value);
                       });
                     },
+                    leading: const Icon(Icons.search),
                   );
-                });
-              }),
+                }, suggestionsBuilder:
+                    (BuildContext context, SearchController controller) {
+                  return List<ListTile>.generate(recents.length, (int index) {
+                    return ListTile(
+                      title: Text(recents[index]),
+                      onTap: () {
+                        setState(() {
+                          controller.closeView(recents[index]);
+                        });
+                      },
+                    );
+                  });
+                }),
+              ),
               const Divider(
                 color: Colors.grey,
                 height: 30,
@@ -91,20 +97,23 @@ class _FavoriteListState extends State<FavoriteList> {
                 indent: 1,
               ),
               Expanded(
-                child: GridView.builder(
-                  itemCount: favoritesList.length,
-                  itemBuilder: (context, index) {
-                    return FavoriteCard(
-                      recipe: favoritesList[index],
-                      onDelete: () => onDelete(index),
-                    );
-                  },
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.0,
-                    crossAxisSpacing: 0.0,
-                    mainAxisSpacing: 5,
-                    mainAxisExtent: 290,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                  child: GridView.builder(
+                    itemCount: searchResults.length,
+                    itemBuilder: (context, index) {
+                      return FavoriteCard(
+                        recipe: searchResults[index],
+                        onDelete: () => onDelete(index),
+                      );
+                    },
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 5,
+                      mainAxisExtent: 280,
+                    ),
                   ),
                 ),
               ),
