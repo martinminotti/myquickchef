@@ -54,21 +54,6 @@ class _FavoriteListState extends State<FavoriteList> {
             "No favorites",
             textAlign: TextAlign.center,
           ))
-        : GridView.builder(
-            itemCount: favoritesList.length,
-            itemBuilder: (context, index) {
-              return FavoriteCard(
-                recipe: favoritesList[index],
-                onDelete: () => onDelete(index),
-              );
-            },
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 1.0,
-              crossAxisSpacing: 0.0,
-              mainAxisSpacing: 5,
-              mainAxisExtent: 290,
-            ),
         : Column(
             children: [
               SearchAnchor(
@@ -106,14 +91,21 @@ class _FavoriteListState extends State<FavoriteList> {
                 indent: 1,
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: searchResults.length,
+                child: GridView.builder(
+                  itemCount: favoritesList.length,
                   itemBuilder: (context, index) {
-                    return RecipeCard(
-                      recipe: searchResults[index],
+                    return FavoriteCard(
+                      recipe: favoritesList[index],
                       onDelete: () => onDelete(index),
                     );
                   },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 1.0,
+                    crossAxisSpacing: 0.0,
+                    mainAxisSpacing: 5,
+                    mainAxisExtent: 290,
+                  ),
                 ),
               ),
             ],
