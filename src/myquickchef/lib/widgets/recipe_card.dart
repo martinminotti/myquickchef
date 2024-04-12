@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/screens/recipe_details_screen.dart';
+import 'package:myquickchef/services/file_recipes.dart';
+import 'package:myquickchef/services/get_image.dart';
 
 class RecipeCard extends StatefulWidget {
   final Recipe recipe;
-  RecipeCard(this.recipe, {super.key});
+  final VoidCallback? onDelete;
+  const RecipeCard({super.key, required this.recipe, this.onDelete});
 
   @override
   State<RecipeCard> createState() => _RecipeCardState();
@@ -20,6 +23,7 @@ class _RecipeCardState extends State<RecipeCard> {
           MaterialPageRoute(
             builder: (context) => RecipeDetailsScreen(
               recipe: widget.recipe,
+              onDelete: widget.onDelete,
             ),
           ),
         )
@@ -62,16 +66,9 @@ class _RecipeCardState extends State<RecipeCard> {
                     '${widget.recipe.category} • ${widget.recipe.preparationTime}',
                     style: const TextStyle(fontSize: 18)),
               ),
-              trailing: IconButton(
-                onPressed: () {
-                  setState(() {
-                    widget.recipe.favorite = !widget.recipe.favorite;
-                  });
-                },
-                icon: Image.asset((widget.recipe.favorite)
-                    ? 'lib/icons/like_on.png'
-                    : 'lib/icons/like_off.png'),
-              ),
+              trailing: widget.recipe.favorite
+                  ? Image.asset('lib/icons/like_on.png')
+                  : const Icon(null),
             ),
             Container(
               //container per contenere solo la presentazione della ricetta
