@@ -7,8 +7,9 @@ import 'package:myquickchef/services/api_service.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<String> getImage(Recipe recipe) async {
-  final url = await ApiService().generateImage(recipeName: recipe.name);
-  // final url ="https://www.giallozafferano.it/images/ricette/0/5/foto_hd/hd650x433_wm.jpg";
+  // final url = await ApiService().generateImage(recipeName: recipe.name);
+  final url =
+      "https://www.giallozafferano.it/images/ricette/0/5/foto_hd/hd650x433_wm.jpg";
   // final image = Image.network(url);
   String tempPath = (await getTemporaryDirectory()).path;
   final res =

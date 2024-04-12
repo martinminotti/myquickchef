@@ -16,12 +16,15 @@ class FavoriteList extends StatefulWidget {
 
 class _FavoriteListState extends State<FavoriteList> {
   List<Recipe> favoritesList = [];
+  List<String> recents = [];
+  List<Recipe> searchResults = [];
   @override
   void initState() {
     super.initState();
     loadList().then((updatedList) {
       setState(() {
         favoritesList = updatedList;
+        searchResults = favoritesList;
       });
     });
   }
@@ -29,6 +32,17 @@ class _FavoriteListState extends State<FavoriteList> {
   void onDelete(int index) {
     setState(() {
       favoritesList.removeAt(index);
+    });
+  }
+
+  void onQueryChanged(String query) {
+    setState(() {
+      query == ""
+          ? searchResults = favoritesList
+          : searchResults = favoritesList
+              .where((item) =>
+                  item.name.toLowerCase().contains(query.toLowerCase()))
+              .toList();
     });
   }
 
@@ -55,6 +69,54 @@ class _FavoriteListState extends State<FavoriteList> {
               mainAxisSpacing: 5,
               mainAxisExtent: 290,
             ),
+        : Column(
+            children: [
+              SearchAnchor(
+                  builder: (BuildContext context, SearchController controller) {
+                return SearchBar(
+                  controller: controller,
+                  hintText: "Cerca",
+                  padding: const MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0)),
+                  onChanged: onQueryChanged,
+                  onSubmitted: (value) {
+                    setState(() {
+                      recents.add(value);
+                    });
+                  },
+                  leading: const Icon(Icons.search),
+                );
+              }, suggestionsBuilder:
+                      (BuildContext context, SearchController controller) {
+                return List<ListTile>.generate(recents.length, (int index) {
+                  return ListTile(
+                    title: Text(recents[index]),
+                    onTap: () {
+                      setState(() {
+                        controller.closeView(recents[index]);
+                      });
+                    },
+                  );
+                });
+              }),
+              const Divider(
+                color: Colors.grey,
+                height: 30,
+                thickness: 4,
+                indent: 1,
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: searchResults.length,
+                  itemBuilder: (context, index) {
+                    return RecipeCard(
+                      recipe: searchResults[index],
+                      onDelete: () => onDelete(index),
+                    );
+                  },
+                ),
+              ),
+            ],
           );
   }
 }
