@@ -47,7 +47,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
 
   Scaffold showRecipeDetails2() {
     return Scaffold(
-            body: NestedScrollView(
+      body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
@@ -65,12 +65,12 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                     centerTitle: true,
                     collapseMode: CollapseMode.parallax,
                     background: ClipRRect(
-                        borderRadius: const BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(36.0),
                         bottomRight: Radius.circular(36.0),
                       ),
                       child: Image(
-                        image: widget.recipe.image!.image,
+                        image: Image.file(File(widget.recipe.image!)).image,
                         fit: BoxFit.cover,
                       ),
                     )),
@@ -78,10 +78,11 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
             ];
           },
           body: Container(
-            margin: const EdgeInsets.only(top: 0), // Margin negativo per far sormontare la card sull'immagine
+            margin: const EdgeInsets.only(
+                top:
+                    0), // Margin negativo per far sormontare la card sull'immagine
             child: showRecipeDetails(),
-          )
-      ),
+          )),
     );
   }
 
@@ -112,13 +113,17 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 indent: 1,
               ),
               Container(
-                padding: EdgeInsets.only(left: 8, bottom: 20),
-                child: Text(widget.recipe.name, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)),
-              
+                  padding: EdgeInsets.only(left: 8, bottom: 20),
+                  child: Text(
+                    widget.recipe.name,
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  )),
               Container(
                 padding: EdgeInsets.only(left: 8, bottom: 10),
                 child: Text(
-                    "${widget.recipe.category}  •  ${widget.recipe.preparationTime}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),),
+                  "${widget.recipe.category}  •  ${widget.recipe.preparationTime}",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -148,8 +153,11 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 indent: 1,
               ),
               Container(
-                padding: EdgeInsets.only(left: 8, bottom: 20, top: 20),
-                child: const Text("Ingredienti", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)),
+                  padding: EdgeInsets.only(left: 8, bottom: 20, top: 20),
+                  child: const Text(
+                    "Ingredienti",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  )),
               BulletedList(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 bulletColor: Color.fromARGB(255, 6, 185, 239),
@@ -164,15 +172,17 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 indent: 1,
               ),
               Container(
-                padding: EdgeInsets.only(left: 8, bottom: 20, top: 20),
-                child: const Text("Ricetta", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)),
+                  padding: EdgeInsets.only(left: 8, bottom: 20, top: 20),
+                  child: const Text(
+                    "Ricetta",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  )),
               BulletedList(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 bulletColor: Colors.black87,
                 listItems: widget.recipe.steps,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 bulletType: BulletType.numbered,
-      
               )
             ],
           ),
