@@ -1,13 +1,15 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:myquickchef/screens/onboarding_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/page_screen.dart';
 import 'styles/style_guide.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final cameras = await availableCameras();
-  final firstCamera = cameras.first;
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final onBoarding = prefs.getBool("onboarding") ?? true;
+
   runApp(
     MaterialApp(
       title: "MyQuickChef",
@@ -18,10 +20,11 @@ Future<void> main() async {
         textTheme: buildTextTheme(),
       ),
       home: SafeArea(
-        child: PageScreen(
-          camera: firstCamera,
-        ),
-      ),
+          child: onBoarding
+              ? OnBoardingScreen(
+                  prefs: prefs,
+                )
+              : PageScreen()),
     ),
   );
 }

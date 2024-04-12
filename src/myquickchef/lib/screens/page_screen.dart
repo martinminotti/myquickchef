@@ -6,9 +6,7 @@ import 'package:myquickchef/screens/favorite_screen.dart';
 import 'home_screen.dart';
 
 class PageScreen extends StatefulWidget {
-  const PageScreen({super.key, required this.camera});
-
-  final CameraDescription camera;
+  const PageScreen({super.key});
 
   @override
   State<PageScreen> createState() => _PageScreenState();
@@ -16,6 +14,11 @@ class PageScreen extends StatefulWidget {
 
 class _PageScreenState extends State<PageScreen> {
   int _currentIndex = 0;
+
+  Future<CameraDescription> getCamera() async {
+    final cameras = await availableCameras();
+    return cameras.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +38,22 @@ class _PageScreenState extends State<PageScreen> {
         ],
       ),
       body: _currentIndex == 0
-          ? HomeScreen(
-              camera: widget.camera,
+          ? FutureBuilder(
+              future: getCamera(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                      child: Image.asset("lib/icons/loading_mqc.gif"));
+                } else if (snapshot.hasData) {
+                  return HomeScreen(camera: snapshot.data!);
+                } else {
+                  return const Center(
+                      child: Text(
+                    "Camera error.\nPlease restart the app.",
+                    textAlign: TextAlign.center,
+                  ));
+                }
+              },
             )
           : FavoriteScreen(),
     );

@@ -43,6 +43,7 @@ dependencies:
   dio: ^5.4.2
   collection: ^1.18.0
   bulleted_list: ^0.0.1+0.1a
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
