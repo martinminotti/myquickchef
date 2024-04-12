@@ -1,8 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'dart:io';
 import 'package:collection/collection.dart';
-import 'package:flutter/widgets.dart';
 
 class Recipe {
   final String name;
@@ -89,15 +86,5 @@ class Recipe {
         other.preparationTime == preparationTime &&
         listEquals(other.ingredients, ingredients) &&
         listEquals(other.steps, steps);
-  }
-
-  @override
-  int get hashCode {
-    return name.hashCode ^
-        category.hashCode ^
-        summary.hashCode ^
-        preparationTime.hashCode ^
-        ingredients.hashCode ^
-        steps.hashCode;
   }
 }

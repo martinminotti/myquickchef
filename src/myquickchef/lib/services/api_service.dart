@@ -42,7 +42,7 @@ class ApiService {
                 {
                   "type": "text",
                   "text":
-                      "GPT, your task is to analyze any image of a food and ingredients I provide, and detect all the name of the featured foods. Respond strictly with the list of the ingredients separeted by a comma. If a food is unrecognizable, reply with \"I don\"t know\". If the image is not food-related, say \"Please pick another image\"",
+                      "GPT, il tuo compito è di analizzare qualsiasi immagine di un cibo e ingredienti che ti invio, e riconoscere tutti i nomi dei cibi che visualizzi. Rispondi unicamente con la lista di ingredienti, ciascuno separato da una virgola. Se un cibo è irriconoscibile, rispondi solamente con \"null\". Rispondi sempre e solo in italiano.",
                 },
                 {
                   "type": "image_url",

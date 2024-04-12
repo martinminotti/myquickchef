@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/screens/recipe_details_screen.dart';
 
@@ -34,9 +33,9 @@ class _FavoriteCardState extends State<FavoriteCard> {
         });
       },
       child: Container(
-        decoration: BoxDecoration(color: Colors.white),
-        margin: EdgeInsets.all(5),
-        padding: EdgeInsets.all(5),
+        decoration: const BoxDecoration(color: Colors.white),
+        margin: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -46,7 +45,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                   image: Image.file(File(widget.recipe.image!)).image,
                 )),
             Padding(
-              padding: EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(top: 15),
               child: Text(
                 widget.recipe.name,
                 style: const TextStyle(
@@ -60,7 +59,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 6),
+                  padding: const EdgeInsets.only(top: 6),
                   child: Text(
                     //faccio una condizione perchè se il nome della categoria è troppo lungo sfora nella card e da un errore, possiamo chiedere di generare un categoria con lunghezza limitata
                     '${widget.recipe.category} • ${widget.recipe.preparationTime}'
@@ -68,7 +67,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                             30
                         ? '${widget.recipe.category}'
                         : '${widget.recipe.category} • ${widget.recipe.preparationTime}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                     ),
                   ),
