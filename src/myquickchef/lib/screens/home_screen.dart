@@ -46,10 +46,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
           "MyQuickChef",
-          style: TextStyle(fontSize: 21, color: Colors.black),
+          style: TextStyle(fontSize: 23, color: Colors.black87),
         ),
       ),
       body: Column(
@@ -58,107 +59,91 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 450,
-                child: CameraBox(
-                    initializeControllerFuture: _initializeControllerFuture,
-                    controller: _controller),
-              ),
+              CameraBox(
+                  initializeControllerFuture: _initializeControllerFuture,
+                  controller: _controller),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 50, right: 50),
+            padding: const EdgeInsets.only(left: 30, right: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                      height: 47,
-                      width: 69,
-                      child: ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Color.fromRGBO(244, 245, 247, 10)),
-                          ),
-                          onPressed: () async {
-                            try {
-                              await _initializeControllerFuture;
-                              setState(() {
-                                torch = !torch;
-                              });
-                              torch
-                                  ? await _controller
-                                      .setFlashMode(FlashMode.torch)
-                                  : await _controller
-                                      .setFlashMode(FlashMode.off);
+                    ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              Color.fromRGBO(244, 245, 247, 10)),
+                        ),
+                        onPressed: () async {
+                          try {
+                            await _initializeControllerFuture;
+                            setState(() {
+                              torch = !torch;
+                            });
+                            torch
+                                ? await _controller
+                                    .setFlashMode(FlashMode.torch)
+                                : await _controller.setFlashMode(FlashMode.off);
 
-                              if (!context.mounted) return;
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          child: torch
-                              ? Image.asset("lib/icons/flash_on.png")
-                              : Image.asset("lib/icons/flash_off.png")),
-                    )
+                            if (!context.mounted) return;
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        child: torch
+                            ? Image.asset("lib/icons/flash_on.png")
+                            : Image.asset("lib/icons/flash_off.png"))
                   ],
                 ),
                 Column(
                   children: [
-                    SizedBox(
-                      height: 153,
-                      width: 153,
-                      child: IconButton(
-                          onPressed: () async {
-                            try {
-                              await _initializeControllerFuture;
-                              _image = await _controller.takePicture();
-
-                              if (!context.mounted) return;
-
-                              await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ResultsScreen(
-                                    image: _image!,
-                                  ),
-                                ),
-                              );
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          icon: Image.asset("lib/icons/quick_button.png")),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 47,
-                      width: 69,
-                      child: ElevatedButton(
-                          style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(
-                                Color.fromRGBO(244, 245, 247, 10)),
-                          ),
-                          onPressed: () async {
-                            _image = await getImage();
+                    IconButton(
+                        onPressed: () async {
+                          try {
+                            await _initializeControllerFuture;
+                            _image = await _controller.takePicture();
 
                             if (!context.mounted) return;
 
-                            if (_image != null) {
-                              await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ResultsScreen(
-                                    image: _image!,
-                                  ),
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ResultsScreen(
+                                  image: _image!,
                                 ),
-                              );
-                            }
-                          },
-                          child: Image.asset("lib/icons/image_off.png")),
-                    )
+                              ),
+                            );
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        icon: Image.asset("lib/icons/quick_button.png"))
+                  ],
+                ),
+                Column(
+                  children: [
+                    ElevatedButton(
+                        style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              Color.fromRGBO(244, 245, 247, 10)),
+                        ),
+                        onPressed: () async {
+                          _image = await getImage();
+
+                          if (!context.mounted) return;
+
+                          if (_image != null) {
+                            await Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ResultsScreen(
+                                  image: _image!,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: Image.asset("lib/icons/image_off.png"))
                   ],
                 ),
               ],

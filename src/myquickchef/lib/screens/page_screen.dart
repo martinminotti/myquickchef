@@ -24,7 +24,7 @@ class _PageScreenState extends State<PageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: SizedBox(
-        height: 80,
+        height: 60,
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           elevation: 30,
@@ -58,7 +58,7 @@ class _PageScreenState extends State<PageScreen> {
                 }
               },
             )
-          : FavoriteScreen(),
+          : const FavoriteScreen(),
     );
   }
 }

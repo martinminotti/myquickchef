@@ -16,7 +16,7 @@ class ApiService {
   Future<String> sendImageToGPT4Vision({
     required XFile image,
     int maxTokens = 50,
-    String model = "gpt-4-vision-preview",
+    String model = "gpt-4-turbo",
   }) async {
     final String base64Image = await encodeImage(image);
     final imageDataUrl = "data:image/jpeg;base64,$base64Image";
@@ -124,7 +124,7 @@ class ApiService {
                 {
                   "type": "text",
                   "text":
-                      "GPT, il tuo compito è quello di generare fino ad una massimo di 5 ricette usando la funzione createRecipesObject. Devi farlo usando in parte o anche tutta questa lista di ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti, una categoria con una sola parola sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
+                      "GPT, il tuo compito è quello di generare fino ad una massimo di 5 ricette usando la funzione createRecipesObject. Devi farlo usando in parte o anche tutta questa lista di ingredienti: $ingredients. Rispondi precisamente con il nome della ricetta, la lista degli ingredienti, una categoria con una sola parola sensata per il tipo di ricetta, un tempo approssimativo di preparazione, un breve riassunto generale di quello che sarà il piatto, ed infine le istruzioni senza numeri, passaggio per passaggio, per eseguire la preparazione della ricetta. Se necessario, sii esaustivo su come eseguire la preparazione del piatto. Rispondi sempre in Italiano.",
                 }
               ],
             },

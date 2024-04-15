@@ -16,7 +16,7 @@ class OnBoardingScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-              padding: EdgeInsets.all(50.0),
+              padding: const EdgeInsets.all(50.0),
               child: Image.asset(
                 "lib/icons/icon-myquickchef_1.png",
                 width: 150,
@@ -52,8 +52,8 @@ class OnBoardingScreen extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               await prefs.setBool("onboarding", false);
-              await Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => PageScreen()));
+              await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const PageScreen()));
             },
             style: const ButtonStyle(
               backgroundColor: MaterialStatePropertyAll(Color.fromARGB(
@@ -62,7 +62,7 @@ class OnBoardingScreen extends StatelessWidget {
                 186,
                 239,
               )),
-              fixedSize: MaterialStatePropertyAll(Size(300,60)),
+              fixedSize: MaterialStatePropertyAll(Size(300, 60)),
             ),
             child: const Text(
               'Scopri Ora',
