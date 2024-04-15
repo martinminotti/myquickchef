@@ -24,7 +24,7 @@ Future<void> main() async {
               ? OnBoardingScreen(
                   prefs: prefs,
                 )
-              : PageScreen()),
+              : const PageScreen()),
     ),
   );
 }

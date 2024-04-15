@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 490,
+                height: 450,
                 child: CameraBox(
                     initializeControllerFuture: _initializeControllerFuture,
                     controller: _controller),

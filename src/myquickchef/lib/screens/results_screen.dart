@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:myquickchef/widgets/results_list.dart';
 
-class ResultsScreen extends StatelessWidget {
+class ResultsScreen extends StatefulWidget {
   final XFile image;
 
   const ResultsScreen({
@@ -11,6 +11,11 @@ class ResultsScreen extends StatelessWidget {
     required this.image,
   });
 
+  @override
+  State<ResultsScreen> createState() => _ResultsScreenState();
+}
+
+class _ResultsScreenState extends State<ResultsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,13 +35,27 @@ class ResultsScreen extends StatelessWidget {
             },
           ),
         ), //icona back
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              icon: const Icon(
+                Icons.refresh_rounded,
+              ),
+              iconSize: 30,
+              onPressed: () {
+                setState(() {});
+              },
+            ),
+          )
+        ],
         centerTitle: true,
         title: const Text(
           'Risultati',
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ), //text risultati
       ),
-      body: ResultsList(image: image),
+      body: ResultsList(image: widget.image),
     );
   }
 }
