@@ -69,9 +69,9 @@ class _FavoriteListState extends State<FavoriteList> {
                       textStyle: const MaterialStatePropertyAll<TextStyle>(
                           TextStyle(fontSize: 19)),
                       backgroundColor:
-                          const MaterialStatePropertyAll<Color>(Colors.white),
+                          const MaterialStatePropertyAll<Color>(Color.fromRGBO(244, 245, 247, 1)),
                       hintStyle: const MaterialStatePropertyAll<TextStyle>(
-                          TextStyle(color: Colors.grey)),
+                          TextStyle(color: Color.fromRGBO(155, 163, 175, 1))),
                       padding: const MaterialStatePropertyAll<EdgeInsets>(
                           EdgeInsets.symmetric(horizontal: 16.0)),
                       onChanged: onQueryChanged,
@@ -81,6 +81,7 @@ class _FavoriteListState extends State<FavoriteList> {
                         });
                       },
                       leading: const Icon(Icons.search),
+                      elevation: MaterialStateProperty.all<double?>(0.0),
                     );
                   }, suggestionsBuilder:
                       (BuildContext context, SearchController controller) {
@@ -99,7 +100,7 @@ class _FavoriteListState extends State<FavoriteList> {
               ),
               const Divider(
                 color: Color.fromRGBO(244, 245, 247, 10),
-                thickness: 6,
+                thickness: 4,
                 indent: 1,
               ),
               Expanded(

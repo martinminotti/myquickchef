@@ -5,8 +5,8 @@ import 'package:myquickchef/models/recipe.dart';
 import 'package:myquickchef/services/api_service.dart';
 
 Future<List<Recipe>?> analyzeImage(XFile image) async {
-  //final res = await ApiService().sendImageToGPT4Vision(image: image);
-  const res = "Olive oil, parmesan cheese, pasta, lemon, shrimps, meat";
+  final res = await ApiService().sendImageToGPT4Vision(image: image);
+  //const res = "Olive oil, parmesan cheese, pasta, lemon, shrimps, meat";
   print(res);
   if (res == "null") {
     return null;
