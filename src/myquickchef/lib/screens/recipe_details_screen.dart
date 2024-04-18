@@ -51,17 +51,20 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
-            leading: IconButton(
-              padding: EdgeInsets.zero,
-              icon: const Icon(Icons.arrow_back_ios_rounded),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(CircleBorder()),
-                backgroundColor: MaterialStateProperty.all(
-                    Colors.transparent.withOpacity(0.15)),
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.arrow_back_ios_rounded),
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(CircleBorder()),
+                  backgroundColor: MaterialStateProperty.all(
+                      Colors.transparent.withOpacity(0.15)),
+                ),
+                onPressed: () async {
+                  await Navigator.maybePop(context);
+                },
               ),
-              onPressed: () async {
-                await Navigator.maybePop(context);
-              },
             ),
             expandedHeight: 300.0,
             floating: false,

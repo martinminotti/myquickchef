@@ -30,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
       imageFormatGroup: ImageFormatGroup.jpeg,
     );
     _initializeControllerFuture = _controller.initialize();
+    _controller.setFlashMode(FlashMode.off);
+    _controller.setFocusMode(FocusMode.auto);
   }
 
   @override
@@ -83,9 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               torch = !torch;
                             });
                             torch
-                                ? await _controller
-                                    .setFlashMode(FlashMode.torch)
-                                : await _controller.setFlashMode(FlashMode.off);
+                                ? _controller.setFlashMode(FlashMode.always)
+                                : _controller.setFlashMode(FlashMode.off);
 
                             if (!context.mounted) return;
                           } catch (e) {
