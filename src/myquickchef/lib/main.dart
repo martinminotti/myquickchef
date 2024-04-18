@@ -12,19 +12,17 @@ Future<void> main() async {
 
   runApp(
     MaterialApp(
-      title: "MyQuickChef",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: buildColorSchemeTheme(),
-        textTheme: buildTextTheme(),
-      ),
-      home: SafeArea(
-          child: onBoarding
-              ? OnBoardingScreen(
-                  prefs: prefs,
-                )
-              : const PageScreen()),
-    ),
+        title: "MyQuickChef",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: buildColorSchemeTheme(),
+          textTheme: buildTextTheme(),
+        ),
+        home: onBoarding
+            ? OnBoardingScreen(
+                prefs: prefs,
+              )
+            : const PageScreen()),
   );
 }

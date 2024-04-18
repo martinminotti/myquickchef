@@ -65,7 +65,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
                     '${widget.recipe.category} • ${widget.recipe.preparationTime}'
                                 .length >
                             30
-                        ? '${widget.recipe.category}'
+                        ? widget.recipe.category
                         : '${widget.recipe.category} • ${widget.recipe.preparationTime}',
                     style: const TextStyle(
                       fontSize: 13,

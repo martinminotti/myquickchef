@@ -55,76 +55,79 @@ class _FavoriteListState extends State<FavoriteList> {
             "Nessun preferito",
             textAlign: TextAlign.center,
           ))
-        : Column(
-            children: [
-              Theme(
-                data: ThemeData(primaryColor: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: SearchAnchor(builder:
-                      (BuildContext context, SearchController controller) {
-                    return SearchBar(
-                      controller: controller,
-                      hintText: "Cerca ricetta",
-                      textStyle: const MaterialStatePropertyAll<TextStyle>(
-                          TextStyle(fontSize: 19)),
-                      backgroundColor:
-                          const MaterialStatePropertyAll<Color>(Color.fromRGBO(244, 245, 247, 1)),
-                      hintStyle: const MaterialStatePropertyAll<TextStyle>(
-                          TextStyle(color: Color.fromRGBO(155, 163, 175, 1))),
-                      padding: const MaterialStatePropertyAll<EdgeInsets>(
-                          EdgeInsets.symmetric(horizontal: 16.0)),
-                      onChanged: onQueryChanged,
-                      onSubmitted: (value) {
-                        setState(() {
-                          recents.add(value);
-                        });
-                      },
-                      leading: const Icon(Icons.search),
-                      elevation: MaterialStateProperty.all<double?>(0.0),
-                    );
-                  }, suggestionsBuilder:
-                      (BuildContext context, SearchController controller) {
-                    return List<ListTile>.generate(recents.length, (int index) {
-                      return ListTile(
-                        title: Text(recents[index]),
-                        onTap: () {
+        : SafeArea(
+            child: Column(
+              children: [
+                Theme(
+                  data: ThemeData(primaryColor: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SearchAnchor(builder:
+                        (BuildContext context, SearchController controller) {
+                      return SearchBar(
+                        controller: controller,
+                        hintText: "Cerca ricetta",
+                        textStyle: const MaterialStatePropertyAll<TextStyle>(
+                            TextStyle(fontSize: 19)),
+                        backgroundColor: const MaterialStatePropertyAll<Color>(
+                            Color.fromRGBO(244, 245, 247, 1)),
+                        hintStyle: const MaterialStatePropertyAll<TextStyle>(
+                            TextStyle(color: Color.fromRGBO(155, 163, 175, 1))),
+                        padding: const MaterialStatePropertyAll<EdgeInsets>(
+                            EdgeInsets.symmetric(horizontal: 16.0)),
+                        onChanged: onQueryChanged,
+                        onSubmitted: (value) {
                           setState(() {
-                            controller.closeView(recents[index]);
+                            recents.add(value);
                           });
                         },
+                        leading: const Icon(Icons.search),
+                        elevation: MaterialStateProperty.all<double?>(0.0),
                       );
-                    });
-                  }),
+                    }, suggestionsBuilder:
+                        (BuildContext context, SearchController controller) {
+                      return List<ListTile>.generate(recents.length,
+                          (int index) {
+                        return ListTile(
+                          title: Text(recents[index]),
+                          onTap: () {
+                            setState(() {
+                              controller.closeView(recents[index]);
+                            });
+                          },
+                        );
+                      });
+                    }),
+                  ),
                 ),
-              ),
-              const Divider(
-                color: Color.fromRGBO(244, 245, 247, 10),
-                thickness: 4,
-                indent: 1,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-                  child: GridView.builder(
-                    itemCount: searchResults.length,
-                    itemBuilder: (context, index) {
-                      return FavoriteCard(
-                        recipe: searchResults[index],
-                        onDelete: () => onDelete(index),
-                      );
-                    },
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 5,
-                      mainAxisExtent: 280,
+                const Divider(
+                  color: Color.fromRGBO(244, 245, 247, 10),
+                  thickness: 4,
+                  indent: 1,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+                    child: GridView.builder(
+                      itemCount: searchResults.length,
+                      itemBuilder: (context, index) {
+                        return FavoriteCard(
+                          recipe: searchResults[index],
+                          onDelete: () => onDelete(index),
+                        );
+                      },
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 5,
+                        mainAxisExtent: 280,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
   }
 }
